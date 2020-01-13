@@ -16,6 +16,7 @@ import javax.annotation.PreDestroy;
 public class LifeCycleDemoBean implements InitializingBean, DisposableBean, BeanNameAware,
         BeanFactoryAware, ApplicationContextAware{
 
+    private String myName = "";
 
     public LifeCycleDemoBean() {
         System.out.println("## I'm in the LifeCycleBean Constructor");
@@ -41,12 +42,12 @@ public class LifeCycleDemoBean implements InitializingBean, DisposableBean, Bean
     @Override
     public void setBeanName(String name) {
         System.out.println("## My Bean Name is: " + name);
-
+        this.myName = name;
     }
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        System.out.println("## Application context has been set");
+        System.out.println("## Application context has been set.  I am a Singleton=" + applicationContext.isSingleton(this.myName) + " : " + applicationContext.getDisplayName());
     }
 
     @PostConstruct
